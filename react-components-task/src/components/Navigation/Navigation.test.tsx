@@ -11,6 +11,6 @@ describe('Navigation', () => {
         <Navigation />
       </MemoryRouter>
     );
-    expect(screen.getByRole('link')).toHaveTextContent('About us');
+    expect(screen.getByText('Main Page')).toBeInTheDocument();
   });
 });

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/SearchBar/SearchBar.js</title>
+    <title>Code coverage report for components/SearchBar/SearchBar.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/SearchBar</a> SearchBar.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/SearchBar</a> SearchBar.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>38/38</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>38/38</span>
             </div>
         
             
@@ -85,10 +85,51 @@
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -96,38 +137,45 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import styles from './SearchBar.module.css';
-class SearchBar extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            query: localStorage.getItem('searchQuery') || '', // Initialize with value from LocalStorage or an empty string
-        };
-        this.handleInputChange = this.handleInputChange.bind(this);
-    }
-    componentWillUnmount() {
-        localStorage.setItem('searchQuery', this.state.query); // Save the input value to LocalStorage during unmount
-    }
-    handleInputChange(event) {
-        this.setState({ query: event.target.value });
-    }
-    render() {
-        return (React.createElement("div", { className: styles.container },
-            React.createElement("input", { type: "text", value: this.state.query, onChange: this.handleInputChange })));
-    }
+&nbsp;
+interface SearchBarProps {}
+&nbsp;
+interface SearchBarState {
+  query: string;
 }
+&nbsp;
+class SearchBar extends React.Component&lt;SearchBarProps, SearchBarState&gt; {
+  constructor(props: SearchBarProps) {
+    super(props);
+&nbsp;
+    this.state = {
+      query: localStorage.getItem('searchQuery') || '', // Initialize with value from LocalStorage or an empty string
+    };
+&nbsp;
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+&nbsp;
+  componentWillUnmount() {
+    localStorage.setItem('searchQuery', this.state.query); // Save the input value to LocalStorage during unmount
+  }
+&nbsp;
+  handleInputChange(event: React.ChangeEvent&lt;HTMLInputElement&gt;) {
+    this.setState({ query: event.target.value });
+  }
+&nbsp;
+  render() {
+    return (
+      &lt;div className={styles.container}&gt;
+        &lt;input type="text" value={this.state.query} onChange={this.handleInputChange} /&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+&nbsp;
 export default SearchBar;
 &nbsp;</pre></td></tr></table></pre>
 
@@ -136,7 +184,7 @@ export default SearchBar;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-20T15:03:03.143Z
+                at 2023-03-20T15:57:59.179Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
