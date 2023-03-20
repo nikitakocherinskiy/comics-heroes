@@ -1,7 +1,7 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, it } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import CardsList from './CardsList';
 
 describe('CardsList', () => {
@@ -11,7 +11,7 @@ describe('CardsList', () => {
         <CardsList />
       </MemoryRouter>
     );
-    let cards = screen.getAllByRole('img');
+    const cards = screen.getAllByRole('img');
     expect(cards.length).toBe(8);
   });
 });

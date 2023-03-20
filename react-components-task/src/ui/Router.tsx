@@ -5,9 +5,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
-type Props = {};
-
-function Router({}: Props) {
+function Router() {
   return (
     <BrowserRouter>
       <Routes>

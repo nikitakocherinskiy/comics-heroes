@@ -3,13 +3,13 @@ import data from '../../data/data';
 import CardItem from '../CardItem/CardItem';
 import styles from './CardsList.module.css';
 
-type Props = {};
+// type Props = {};
 
-type State = {};
+// type State = {};
 
 //https://gateway.marvel.com:443/v1/public/characters?limit=8&apikey=910a76a074aeea58306892ac355119f0
 
-class CardsList extends Component<Props, State> {
+class CardsList extends Component {
   state = {
     heros: data.data,
   };

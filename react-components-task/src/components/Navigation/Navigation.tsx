@@ -2,11 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Navigation.module.css';
 
-type Props = {};
-
-function Navigation({}: Props) {
+function Navigation() {
   return (
     <div className={styles.container}>
+      <Link to="/" relative="path" className={styles.link}>
+        Main Page
+      </Link>
       <Link to="/about" relative="path" className={styles.link}>
         About us
       </Link>

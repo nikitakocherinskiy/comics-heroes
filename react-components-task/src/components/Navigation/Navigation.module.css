@@ -12,3 +12,7 @@
   font-weight: bold;
   color: white;
 }
+
+.link:first-child {
+  margin-right: 20px;
+}

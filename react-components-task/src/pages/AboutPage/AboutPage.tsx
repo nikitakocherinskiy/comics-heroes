@@ -2,9 +2,7 @@ import React from 'react';
 import Navigation from '../../components/Navigation/Navigation';
 import styles from './AboutPage.module.css';
 
-type Props = {};
-
-function AboutPage({}: Props) {
+function AboutPage() {
   return (
     <div className={styles.container}>
       <Navigation />
