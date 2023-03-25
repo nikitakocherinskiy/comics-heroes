@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { IFormData, IState } from './FormTypes';
 import CardForm from '../CardForm/CardForm';
+import styles from './Form.module.css';
 
 type FormProps = {};
 
@@ -126,9 +127,9 @@ class Form extends React.Component<FormProps, IState> {
     const { formData, submittedData, errors, isFormSubmitted } = this.state;
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className={styles.container}>
           <label>
-            Name:
+            <h4 className={styles.inputHeading}>Name:</h4>
             <input
               type="text"
               name="name"
@@ -138,7 +139,7 @@ class Form extends React.Component<FormProps, IState> {
             {errors.name && <span>{errors.name}</span>}
           </label>
           <label>
-            Surname:
+            <h4 className={styles.inputHeading}>Surname:</h4>
             <input
               type="text"
               name="surname"
@@ -148,7 +149,7 @@ class Form extends React.Component<FormProps, IState> {
             {errors.surname && <span>{errors.surname}</span>}
           </label>
           <label>
-            Birthday:
+            <h4 className={styles.inputHeading}>Birthday:</h4>
             <input
               type="date"
               name="birthday"
@@ -158,7 +159,7 @@ class Form extends React.Component<FormProps, IState> {
             {errors.birthday && <span>{errors.birthday}</span>}
           </label>
           <label>
-            Country:
+            <h4 className={styles.inputHeading}>Country:</h4>
             <select name="country" value={formData.country} onChange={this.handleInputChange}>
               <option value="">Select country</option>
               <option value="USA">USA</option>
@@ -168,7 +169,7 @@ class Form extends React.Component<FormProps, IState> {
             {errors.country && <span>{errors.country}</span>}
           </label>
           <label>
-            State:
+            <h4 className={styles.inputHeading}>State:</h4>
             <select name="state" value={formData.state} onChange={this.handleInputChange}>
               <option value="">Select state</option>
               <option value="New York">New York</option>
@@ -178,7 +179,7 @@ class Form extends React.Component<FormProps, IState> {
             {errors.state && <span>{errors.state}</span>}
           </label>
           <label>
-            Consent:
+            <h4 className={styles.inputHeading}>Consent:</h4>
             <input
               type="checkbox"
               name="consent"
@@ -188,7 +189,7 @@ class Form extends React.Component<FormProps, IState> {
             {errors.consent && <span>{errors.consent}</span>}
           </label>
           <label>
-            Extra presents:
+            <h4 className={styles.inputHeading}>Extra presents:</h4>
             <input
               type="checkbox"
               name="present"
@@ -197,7 +198,7 @@ class Form extends React.Component<FormProps, IState> {
             />
           </label>
           <fieldset>
-            <legend>Gender:</legend>
+            <h4 className={styles.inputHeading}>Gender:</h4>
             <label>
               Male
               <input
@@ -206,6 +207,7 @@ class Form extends React.Component<FormProps, IState> {
                 value="male"
                 checked={formData.gender === 'male'}
                 onChange={this.handleInputChange}
+                className={styles.checkboxInput}
               />
             </label>
             <label>
@@ -216,22 +218,25 @@ class Form extends React.Component<FormProps, IState> {
                 value="female"
                 checked={formData.gender === 'female'}
                 onChange={this.handleInputChange}
+                className={styles.checkboxInput}
               />
             </label>
           </fieldset>
           <label>
-            Profile picture:
+            <h4 className={styles.inputHeading}>Profile picture:</h4>
             <input type="file" name="picture" onChange={this.handleFileInputChange} />
             {errors.profilePic && <span>{errors.profilePic}</span>}
           </label>
-          <button type="submit">Submit</button>
+          <button type="submit" className={styles.button}>
+            Submit
+          </button>
         </form>
         {isFormSubmitted && (
           <div>
             <p>Thank you for submitting the form!</p>
           </div>
         )}
-        <div>
+        <div className={styles.cardsConrainer}>
           {submittedData.map((data, index) => (
             <CardForm key={index} data={data} />
           ))}
