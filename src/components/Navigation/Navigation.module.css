@@ -13,6 +13,6 @@
   color: white;
 }
 
-.link:first-child {
+.link:not(:last-child) {
   margin-right: 20px;
 }

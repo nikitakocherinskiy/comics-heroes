@@ -11,6 +11,9 @@ function Navigation() {
       <Link to="/about" relative="path" className={styles.link}>
         About us
       </Link>
+      <Link to="/forms" relative="path" className={styles.link}>
+        Forms
+      </Link>
     </div>
   );
 }

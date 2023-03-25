@@ -4,6 +4,7 @@ import MainPage from '../pages/MainPage/MainPage';
 import React from 'react';
 import { Route, Routes } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
+import FormPage from '../pages/FormsPage/FormPage';
 
 function Router() {
   return (
@@ -11,6 +12,7 @@ function Router() {
       <Routes>
         <Route element={<MainPage />} path="/" />
         <Route element={<AboutPage />} path="/about" />
+        <Route element={<FormPage />} path="/forms" />
         <Route element={<ErrorPage />} path="*" />
       </Routes>
     </BrowserRouter>
