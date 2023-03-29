@@ -1,38 +1,25 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import styles from './SearchBar.module.css';
 
-type SearchBarProps = {};
+function SearchBar2() {
+  const [query, setQuery] = useState<string>('');
 
-interface SearchBarState {
-  query: string;
+  useEffect(() => {
+    const searchQuery = localStorage.getItem('searchQuery');
+    if (searchQuery) {
+      setQuery(searchQuery);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('searchQuery', query);
+  }, [query]);
+
+  return (
+    <div className={styles.container}>
+      <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
+    </div>
+  );
 }
 
-class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
-  constructor(props: SearchBarProps) {
-    super(props);
-
-    this.state = {
-      query: localStorage.getItem('searchQuery') || '', // Initialize with value from LocalStorage or an empty string
-    };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  componentWillUnmount() {
-    localStorage.setItem('searchQuery', this.state.query); // Save the input value to LocalStorage during unmount
-  }
-
-  handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ query: event.target.value });
-  }
-
-  render() {
-    return (
-      <div className={styles.container}>
-        <input type="text" value={this.state.query} onChange={this.handleInputChange} />
-      </div>
-    );
-  }
-}
-
-export default SearchBar;
+export default SearchBar2;
