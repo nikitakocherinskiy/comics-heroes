@@ -15,6 +15,7 @@ function Form() {
 
   const onSubmit: SubmitHandler<IFormData> = (data) => {
     setCardList([data, ...cardList]);
+    reset();
   };
 
   return (
