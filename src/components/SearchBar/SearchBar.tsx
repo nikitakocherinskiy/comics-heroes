@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './SearchBar.module.css';
 
-function SearchBar2() {
+function SearchBar() {
   const [query, setQuery] = useState<string>('');
 
   useEffect(() => {
@@ -22,4 +22,4 @@ function SearchBar2() {
   );
 }
 
-export default SearchBar2;
+export default SearchBar;

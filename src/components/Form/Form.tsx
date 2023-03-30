@@ -15,15 +15,11 @@ function Form() {
 
   const onSubmit: SubmitHandler<IFormData> = (data) => {
     setCardList([data, ...cardList]);
-    if (data.profilePic) {
-      console.log(data.profilePic[0]);
-    }
-    reset();
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.container} name="addCard">
         <label>
           <h4 className={styles.inputHeading}>Name:</h4>
           <input
