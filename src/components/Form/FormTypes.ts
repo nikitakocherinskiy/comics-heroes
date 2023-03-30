@@ -3,16 +3,16 @@ export interface IFormData {
   surname: string;
   birthday: string;
   country: string;
-  state: string;
+  city: string;
   consent: boolean;
   present: boolean;
   gender: string;
-  profilePic: File | null;
+  profilePic: FileList | null;
 }
 
-export interface IState {
-  formData: IFormData;
-  submittedData: IFormData[];
-  errors: Partial<Record<keyof IFormData, string>>;
-  isFormSubmitted: boolean;
-}
+// export interface IState {
+//   formData: IFormData;
+//   submittedData: IFormData[];
+//   errors: Partial<Record<keyof IFormData, string>>;
+//   isFormSubmitted: boolean;
+// }

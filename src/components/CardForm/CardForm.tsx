@@ -5,20 +5,20 @@ type Props = {
   data: IFormData;
 };
 
-function CardForm2({ data }: Props) {
+function CardForm({ data }: Props) {
   return (
     <div className={styles.container}>
       <p>Name: {data.name}</p>
       <p>Surname: {data.surname}</p>
       <p>Birthday: {data.birthday}</p>
       <p>Country: {data.country}</p>
-      <p>State: {data.state}</p>
+      <p>State: {data.city}</p>
       <p>Gender: {data.gender}</p>
       <p>Extra presents: {data.present ? 'Yes' : 'No'}</p>
       <p className={styles.imageWrapper}>
-        Profile picture:{' '}
+        Profile picture:
         {data.profilePic ? (
-          <img className={styles.image} src={URL.createObjectURL(data.profilePic)} />
+          <img className={styles.image} src={URL.createObjectURL(data.profilePic[0])} />
         ) : (
           'No picture'
         )}
@@ -27,4 +27,4 @@ function CardForm2({ data }: Props) {
   );
 }
 
-export default CardForm2;
+export default CardForm;

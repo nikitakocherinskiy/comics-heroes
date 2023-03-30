@@ -1,249 +1,169 @@
-import * as React from 'react';
-import { IFormData, IState } from './FormTypes';
+import { IFormData } from './FormTypes';
 import CardForm from '../CardForm/CardForm';
 import styles from './Form.module.css';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useState } from 'react';
 
-type FormProps = {};
+function Form() {
+  const {
+    register,
+    formState: { isSubmitted, isValid, errors },
+    handleSubmit,
+    reset,
+  } = useForm<IFormData>({ mode: 'onBlur' });
+  const [cardList, setCardList] = useState<IFormData[]>([]);
 
-class Form extends React.Component<FormProps, IState> {
-  constructor(props: FormProps) {
-    super(props);
-    this.state = {
-      formData: {
-        name: '',
-        surname: '',
-        birthday: '',
-        country: '',
-        state: '',
-        consent: false,
-        present: false,
-        gender: '',
-        profilePic: null,
-      },
-      submittedData: [],
-      errors: {},
-      isFormSubmitted: false,
-    };
-  }
-
-  handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    const target = event.target;
-    const value =
-      target.type === 'checkbox' ? (event.target as HTMLInputElement).checked : target.value;
-    const name = target.name;
-
-    this.setState((prevState) => ({
-      formData: {
-        ...prevState.formData,
-        [name]: value,
-      },
-      errors: {
-        ...prevState.errors,
-        [name]: '',
-      },
-    }));
+  const onSubmit: SubmitHandler<IFormData> = (data) => {
+    setCardList([data, ...cardList]);
+    if (data.profilePic) {
+      console.log(data.profilePic[0]);
+    }
+    reset();
   };
 
-  handleFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const target = event.target;
-    if (target.files && target.files.length > 0) {
-      const file = target.files[0];
-      this.setState((prevState) => ({
-        formData: {
-          ...prevState.formData,
-          profilePic: file,
-        },
-      }));
-    }
-  };
+  return (
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
+        <label>
+          <h4 className={styles.inputHeading}>Name:</h4>
+          <input
+            {...register('name', {
+              required: 'This field is required',
+              pattern: /^[A-Za-z]+$/i,
+            })}
+          />
+          {errors?.name && <p className={styles.error}>{errors?.name?.message || 'Error!'}</p>}
+        </label>
+        <label>
+          <h4 className={styles.inputHeading}>Surname:</h4>
+          <input
+            {...register('surname', {
+              required: 'This field is required',
+              pattern: /^[A-Za-z]+$/i,
+            })}
+          />
+          {errors?.surname && (
+            <p className={styles.error}>{errors?.surname?.message || 'Error!'}</p>
+          )}
+        </label>
+        <label>
+          <h4 className={styles.inputHeading}>Birthday:</h4>
+          <input
+            {...register('birthday', {
+              required: 'This field is required',
+            })}
+            type="date"
+          />
+          {errors?.birthday && (
+            <p className={styles.error}>{errors?.birthday?.message || 'Error!'}</p>
+          )}
+        </label>
+        <label>
+          <h4 className={styles.inputHeading}>Country:</h4>
+          <select
+            {...register('country', {
+              required: 'This field is required',
+            })}
+          >
+            <option value="">Select country</option>
+            <option value="USA">USA</option>
+            <option value="Canada">Russia</option>
+            <option value="Mexico">Mexico</option>
+          </select>
+          {errors?.country && (
+            <p className={styles.error}>{errors?.country?.message || 'Error!'}</p>
+          )}
+        </label>
+        <label>
+          <h4 className={styles.inputHeading}>City:</h4>
+          <input
+            {...register('city', {
+              required: 'This field is required',
+            })}
+          />
+          {errors?.city && <p className={styles.error}>{errors?.city?.message || 'Error!'}</p>}
+        </label>
+        <label>
+          <h4 className={styles.inputHeading}>Consent:</h4>
+          <input
+            type="checkbox"
+            {...register('consent', {
+              required: 'This field is required',
+            })}
+          />
+          {errors?.consent && (
+            <p className={styles.error}>{errors?.consent?.message || 'Error!'}</p>
+          )}
+        </label>
+        <label>
+          <h4 className={styles.inputHeading}>Extra presents:</h4>
+          <input
+            type="checkbox"
+            {...register('present', {
+              required: 'This field is required',
+            })}
+          />
+          {errors?.present && (
+            <p className={styles.error}>{errors?.present?.message || 'Error!'}</p>
+          )}
+        </label>
+        {/* <fieldset> */}
 
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const errors = this.validateForm();
-    if (Object.keys(errors).length > 0) {
-      this.setState({ errors });
-      return;
-    }
-
-    this.setState((prevState) => ({
-      submittedData: [...prevState.submittedData, prevState.formData],
-      formData: {
-        name: '',
-        surname: '',
-        birthday: '',
-        country: '',
-        state: '',
-        consent: false,
-        present: false,
-        gender: '',
-        profilePic: null,
-      },
-      isFormSubmitted: true,
-    }));
-
-    setTimeout(() => {
-      this.setState({ isFormSubmitted: false });
-    }, 3000);
-  };
-
-  validateForm = (): Partial<Record<keyof IFormData, string>> => {
-    const formData = this.state.formData;
-    const errors: Partial<Record<keyof IFormData, string>> = {};
-
-    if (!formData.name) {
-      errors.name = 'Please enter your name';
-    } else if (!/^[A-Z]/.test(formData.name)) {
-      errors.name = 'Name should start with an uppercased letter';
-    }
-
-    if (!formData.surname) {
-      errors.surname = 'Please enter your surname';
-    } else if (!/^[A-Z]/.test(formData.surname)) {
-      errors.surname = 'Surname should start with an uppercased letter';
-    }
-
-    if (!formData.birthday) {
-      errors.birthday = 'Please enter your birthday';
-    }
-
-    if (!formData.country) {
-      errors.country = 'Please select your country';
-    }
-
-    if (!formData.state) {
-      errors.state = 'Please select your state';
-    }
-
-    if (!formData.consent) {
-      errors.consent = 'Please give your consent';
-    }
-
-    return errors;
-  };
-  render() {
-    const { formData, submittedData, errors, isFormSubmitted } = this.state;
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit} className={styles.container}>
+        <label className={styles.genderWrapper}>
+          <h4 className={styles.genderHeading}>Gender:</h4>
           <label>
-            <h4 className={styles.inputHeading}>Name:</h4>
+            <p>Male</p>
             <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={this.handleInputChange}
-            />
-            {errors.name && <span>{errors.name}</span>}
-          </label>
-          <label>
-            <h4 className={styles.inputHeading}>Surname:</h4>
-            <input
-              type="text"
-              name="surname"
-              value={formData.surname}
-              onChange={this.handleInputChange}
-            />
-            {errors.surname && <span>{errors.surname}</span>}
-          </label>
-          <label>
-            <h4 className={styles.inputHeading}>Birthday:</h4>
-            <input
-              type="date"
-              name="birthday"
-              value={formData.birthday}
-              onChange={this.handleInputChange}
-            />
-            {errors.birthday && <span>{errors.birthday}</span>}
-          </label>
-          <label>
-            <h4 className={styles.inputHeading}>Country:</h4>
-            <select name="country" value={formData.country} onChange={this.handleInputChange}>
-              <option value="">Select country</option>
-              <option value="USA">USA</option>
-              <option value="Canada">Canada</option>
-              <option value="Mexico">Mexico</option>
-            </select>
-            {errors.country && <span>{errors.country}</span>}
-          </label>
-          <label>
-            <h4 className={styles.inputHeading}>State:</h4>
-            <select name="state" value={formData.state} onChange={this.handleInputChange}>
-              <option value="">Select state</option>
-              <option value="New York">New York</option>
-              <option value="California">California</option>
-              <option value="Texas">Texas</option>
-            </select>
-            {errors.state && <span>{errors.state}</span>}
-          </label>
-          <label>
-            <h4 className={styles.inputHeading}>Consent:</h4>
-            <input
-              type="checkbox"
-              name="consent"
-              checked={formData.consent}
-              onChange={this.handleInputChange}
-            />
-            {errors.consent && <span>{errors.consent}</span>}
-          </label>
-          <label>
-            <h4 className={styles.inputHeading}>Extra presents:</h4>
-            <input
-              type="checkbox"
-              name="present"
-              checked={formData.present}
-              onChange={this.handleInputChange}
+              type="radio"
+              value="male"
+              {...register('gender', {
+                required: 'This field is required',
+              })}
+              className={styles.checkboxInput}
             />
           </label>
-          <fieldset>
-            <h4 className={styles.inputHeading}>Gender:</h4>
-            <label>
-              Male
-              <input
-                type="radio"
-                name="gender"
-                value="male"
-                checked={formData.gender === 'male'}
-                onChange={this.handleInputChange}
-                className={styles.checkboxInput}
-              />
-            </label>
-            <label>
-              Female
-              <input
-                type="radio"
-                name="gender"
-                value="female"
-                checked={formData.gender === 'female'}
-                onChange={this.handleInputChange}
-                className={styles.checkboxInput}
-              />
-            </label>
-          </fieldset>
           <label>
-            <h4 className={styles.inputHeading}>Profile picture:</h4>
-            <input type="file" name="picture" onChange={this.handleFileInputChange} />
-            {errors.profilePic && <span>{errors.profilePic}</span>}
+            <p>Female</p>
+            <input
+              type="radio"
+              value="female"
+              {...register('gender', {
+                required: 'This field is required',
+              })}
+              className={styles.checkboxInput}
+            />
           </label>
-          <button type="submit" className={styles.button}>
-            Submit
-          </button>
-        </form>
-        {isFormSubmitted && (
-          <div>
-            <p>Thank you for submitting the form!</p>
-          </div>
-        )}
-        <div className={styles.cardsConrainer}>
-          {submittedData.map((data, index) => (
-            <CardForm key={index} data={data} />
-          ))}
+          {errors?.gender && <p className={styles.error}>{errors?.gender?.message || 'Error!'}</p>}
+        </label>
+        {/* </fieldset> */}
+        <label>
+          <h4 className={styles.inputHeading}>Profile picture:</h4>
+          <input
+            type="file"
+            {...register('profilePic', {
+              required: 'This field is required',
+            })}
+          />
+          {errors?.profilePic && (
+            <p className={styles.error}>{errors?.profilePic?.message || 'Error!'}</p>
+          )}
+        </label>
+        <button type="submit" className={styles.button}>
+          Submit
+        </button>
+      </form>
+      {isSubmitted && isValid && (
+        <div>
+          <p className={styles.success}>Thank you for submitting the form!</p>
         </div>
+      )}
+      <div className={styles.cardsConrainer}>
+        {cardList.map((data, index) => (
+          <CardForm key={index} data={data} />
+        ))}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Form;
