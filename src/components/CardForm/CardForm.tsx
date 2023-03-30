@@ -17,8 +17,8 @@ function CardForm({ data }: Props) {
       <p>Extra presents: {data.present ? 'Yes' : 'No'}</p>
       <p className={styles.imageWrapper}>
         Profile picture:
-        {data.profilePic ? (
-          <img className={styles.image} src={URL.createObjectURL(data.profilePic[0])} />
+        {data.profilePic && typeof data.profilePic === 'string' ? (
+          <img className={styles.image} src={data.profilePic} />
         ) : (
           'No picture'
         )}

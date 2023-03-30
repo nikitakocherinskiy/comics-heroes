@@ -1,13 +1,11 @@
-import { useState } from 'react';
 import data from '../../data/data';
 import CardItem from '../CardItem/CardItem';
 import styles from './CardsList.module.css';
 
-function CardsList2() {
-  const [heros, setHeros] = useState(data.data);
+function CardsList() {
   return (
     <div className={styles.container}>
-      {heros.results.map((el) => {
+      {data.data.results.map((el) => {
         return (
           <CardItem
             key={el.id}
@@ -21,4 +19,4 @@ function CardsList2() {
   );
 }
 
-export default CardsList2;
+export default CardsList;

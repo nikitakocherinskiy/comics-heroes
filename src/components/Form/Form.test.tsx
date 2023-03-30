@@ -1,10 +1,10 @@
 import { MemoryRouter } from 'react-router-dom';
 import { describe, it } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Form from './Form';
+import { render, screen, fireEvent } from '@testing-library/react';
+import FormsPage from '../../pages/FormsPage/FormPage';
 render(
   <MemoryRouter>
-    <Form />
+    <FormsPage />
   </MemoryRouter>
 );
 describe('Form', () => {
@@ -23,7 +23,11 @@ describe('Form', () => {
   });
 
   it('displays error message if invalid values are entered', async () => {
-    render(<Form />);
+    render(
+      <MemoryRouter>
+        <FormsPage />
+      </MemoryRouter>
+    );
     const nameInput = screen.getByLabelText('Name:');
     fireEvent.change(nameInput, { target: { value: '123' } });
 
@@ -34,7 +38,11 @@ describe('Form', () => {
   });
 
   it('reset form', () => {
-    render(<Form />);
+    render(
+      <MemoryRouter>
+        <FormsPage />
+      </MemoryRouter>
+    );
 
     const nameInput = screen.getByLabelText('Name:');
     const surnameInput = screen.getByLabelText('Surname:');
@@ -46,7 +54,6 @@ describe('Form', () => {
     const maleRadio = screen.getByLabelText('Male');
     const profilePicInput = screen.getByLabelText('Profile picture:');
     const submitButton = screen.getByRole('button', { name: 'Submit' });
-    const form = screen.getByRole('form');
 
     fireEvent.change(nameInput, { target: { value: 'Nikita' } });
     fireEvent.change(surnameInput, { target: { value: 'Koch' } });

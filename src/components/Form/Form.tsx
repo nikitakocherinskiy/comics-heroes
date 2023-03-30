@@ -1,22 +1,51 @@
 import { IFormData } from './FormTypes';
-import CardForm from '../CardForm/CardForm';
 import styles from './Form.module.css';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { FormFuncType } from './FormTypes';
 
-function Form() {
+function Form({ setCardList }: FormFuncType) {
   const {
     register,
-    formState: { isSubmitted, isValid, errors },
+    formState,
+    formState: { errors },
     handleSubmit,
     reset,
   } = useForm<IFormData>({ mode: 'onBlur' });
-  const [cardList, setCardList] = useState<IFormData[]>([]);
+  const [isShowMassage, setIsShowMassage] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<IFormData> = (data) => {
-    setCardList([data, ...cardList]);
-    reset();
+    setCardList((prev) => [
+      ...prev,
+      {
+        ...data,
+        profilePic:
+          typeof data.profilePic === 'string'
+            ? data.profilePic
+            : URL.createObjectURL(data.profilePic[0]),
+      },
+    ]);
+    setIsShowMassage(true);
   };
+
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset();
+    }
+  }, [formState, reset]);
+
+  useEffect(() => {
+    const messageTimeout: NodeJS.Timeout = setTimeout(() => {
+      if (isShowMassage) {
+        setIsShowMassage(false);
+      }
+      reset();
+    }, 2000);
+
+    return () => {
+      clearInterval(messageTimeout);
+    };
+  }, [isShowMassage, reset]);
 
   return (
     <div>
@@ -136,10 +165,10 @@ function Form() {
         <label>
           <h4 className={styles.inputHeading}>Profile picture:</h4>
           <input
-            type="file"
             {...register('profilePic', {
               required: 'This field is required',
             })}
+            type="file"
           />
           {errors?.profilePic && (
             <p className={styles.error}>{errors?.profilePic?.message || 'Error!'}</p>
@@ -149,16 +178,7 @@ function Form() {
           Submit
         </button>
       </form>
-      {isSubmitted && isValid && (
-        <div>
-          <p className={styles.success}>Thank you for submitting the form!</p>
-        </div>
-      )}
-      <div className={styles.cardsConrainer}>
-        {cardList.map((data, index) => (
-          <CardForm key={index} data={data} />
-        ))}
-      </div>
+      {isShowMassage && <p className={styles.success}>Thank you for submitting the form!</p>}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { MemoryRouter } from 'react-router-dom';
 import { describe, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import CardForm from './CardForm';
 import { IFormData } from '../Form/FormTypes';
 
@@ -16,7 +16,7 @@ describe('CardForm', () => {
     consent: true,
     present: false,
     gender: 'male',
-    profilePic: null,
+    profilePic: '',
   };
   it('Renders CardItem', () => {
     const { getByText } = render(

@@ -7,7 +7,11 @@ export interface IFormData {
   consent: boolean;
   present: boolean;
   gender: string;
-  profilePic: FileList | null;
+  profilePic: FileList | string;
+}
+
+export interface FormFuncType {
+  setCardList: React.Dispatch<React.SetStateAction<IFormData[]>>;
 }
 
 // export interface IState {
