@@ -12,10 +12,10 @@ type Props = {
 function CardItem({ name, image, description }: Props) {
   return (
     <div className={styles.container}>
-      <img src={image} className={styles.image} />
+      <img src={image} className={styles.image} alt={name} />
       <div>
         <h1 className={styles.header}>{name}</h1>
-        <p>{description}</p>
+        <p>{description.slice(0, 100) + '...'}</p>
         <button className={styles.button}>
           <Link to="http://marvel.com" relative="path" className={styles.link}>
             Read more
