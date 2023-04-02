@@ -14,24 +14,6 @@
   margin: 15px;
 }
 
-.paginationWrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  grid-column: 2 / 5;
-}
-
-.paginationButton {
-  cursor: pointer;
-  text-align: center;
-  width: 55px;
-  margin: 10px;
-  border: 2px solid red;
-  padding: 5px;
-  border-radius: 10px;
-  background-color: white;
-}
-
 .paginationButtonFocus {
   background-color: red;
   color: white;
