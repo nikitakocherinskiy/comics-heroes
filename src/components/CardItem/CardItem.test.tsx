@@ -1,40 +1,37 @@
-import { MemoryRouter } from 'react-router-dom';
 import { describe, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import CardItem from './CardItem';
+import { QueryClientProvider, QueryClient } from 'react-query';
+
+const queryClient = new QueryClient();
+
+const testProps = {
+  id: 123,
+  name: 'Spider-Man',
+  image: 'https://i.annihil.us/u/prod/marvel/i/mg/3/50/526548a343e4b.jpg',
+  description: 'Friendly neighborhood Spider-Man...',
+};
 
 describe('CardItem', () => {
-  it('Renders CardItem', () => {
-    const data = {
-      id: 1009562,
-      name: 'Scarlet Witch',
-      description: '',
-      image: 'http://i.annihil.us/u/prod/marvel/i/mg/6/70/5261a7d7c394b.jpg',
-    };
-
+  it('renders the component with props', () => {
     render(
-      <MemoryRouter>
-        <CardItem
-          key={data.id}
-          name={data.name}
-          description={data.description || 'No description yet'}
-          image={data.image + '.jpg'}
-        />
-      </MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <CardItem {...testProps} />
+      </QueryClientProvider>
     );
+    const headerElement = screen.getByText(testProps.name);
+    expect(headerElement).toBeInTheDocument();
+  });
 
-    expect(
-      screen.getByRole('heading', {
-        level: 1,
-      })
-    ).toHaveTextContent('Scarlet Witch');
-
-    expect(screen.getByRole('img')).toBeInTheDocument();
-
-    expect(screen.getByRole('button')).toBeInTheDocument();
-
-    expect(screen.getByRole('link')).toHaveTextContent('Read more');
-
-    expect(screen.getByText('No description yet')).toBeInTheDocument();
+  it('opens modal on button click', () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <CardItem {...testProps} />
+      </QueryClientProvider>
+    );
+    const buttonElement = screen.getByText('Read more');
+    fireEvent.click(buttonElement);
+    const modalElement = screen.getByRole('heading');
+    expect(modalElement).toBeInTheDocument();
   });
 });

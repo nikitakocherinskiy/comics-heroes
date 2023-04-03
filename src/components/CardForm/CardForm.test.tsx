@@ -1,6 +1,6 @@
 import { MemoryRouter } from 'react-router-dom';
 import { describe, it } from 'vitest';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import CardForm from './CardForm';
 import { IFormData } from '../Form/FormTypes';
 
@@ -33,5 +33,22 @@ describe('CardForm', () => {
     expect(getByText(`Gender: ${data.gender}`)).toBeInTheDocument();
     expect(getByText(`Extra presents: No`)).toBeInTheDocument();
     expect(getByText(`Profile picture:No picture`)).toBeInTheDocument();
+  });
+
+  it('should render picture when profile picture is not a string', () => {
+    const formDataWithoutPic = {
+      ...data,
+      profilePic: 'https://example.com/profile.jpg',
+    };
+    render(
+      <MemoryRouter>
+        <CardForm key={id} data={formDataWithoutPic} />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByAltText('Profile picture')).toHaveAttribute(
+      'src',
+      formDataWithoutPic.profilePic
+    );
   });
 });

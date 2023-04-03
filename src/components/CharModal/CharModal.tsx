@@ -29,7 +29,7 @@ function CharModal({ id, visible, setVisible }: Props) {
   }, [data?.data.results]);
 
   return (
-    <div className={rootClasses.join(' ')} onClick={() => setVisible(false)}>
+    <div className={rootClasses.join(' ')} onClick={() => setVisible(false)} role="main">
       {isLoading && <LoadingSpinner />}
       {!isLoading && charData && (
         <div className={styles.content} onClick={(e) => e.stopPropagation()}>
@@ -49,8 +49,8 @@ function CharModal({ id, visible, setVisible }: Props) {
               Check Out Comics Here!
             </Link>
           </button>
-          <div className={styles.closeWrapper}>
-            <div className={styles.close} onClick={() => setVisible(false)}></div>
+          <div className={styles.closeWrapper} data-testid="close">
+            <div className={styles.close} onClick={() => setVisible(false)} role="button"></div>
           </div>
         </div>
       )}

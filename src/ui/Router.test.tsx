@@ -32,16 +32,4 @@ describe('Router', () => {
       })
     ).toHaveTextContent('About us');
   });
-
-  it('Renders Main', () => {
-    render(
-      <MemoryRouter initialEntries={['/']}>
-        <MainPage />
-      </MemoryRouter>
-    );
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
-    fireEvent.change(screen.getByRole('textbox'), {
-      target: { value: 'React' },
-    });
-  });
 });

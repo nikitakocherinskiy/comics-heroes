@@ -18,7 +18,7 @@ function CardForm({ data }: Props) {
       <p className={styles.imageWrapper}>
         Profile picture:
         {data.profilePic && typeof data.profilePic === 'string' ? (
-          <img className={styles.image} src={data.profilePic} />
+          <img className={styles.image} src={data.profilePic} alt="Profile picture" />
         ) : (
           'No picture'
         )}
