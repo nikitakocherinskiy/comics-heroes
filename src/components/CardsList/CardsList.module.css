@@ -1,0 +1,20 @@
+.container {
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
+  justify-content: center;
+  grid-template-columns: repeat(5, 300px);
+}
+
+.spinnerWrapper {
+  text-align: center;
+}
+
+.spinner-header {
+  margin: 15px;
+}
+
+.paginationButtonFocus {
+  background-color: red;
+  color: white;
+}

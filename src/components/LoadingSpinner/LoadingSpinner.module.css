@@ -1,0 +1,57 @@
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 70px;
+  text-align: center;
+}
+
+/* .color .bounce1,
+.color .bounce2,
+.color .bounce3 {
+  background-color: #ffffff;
+}
+
+.color .bounce1,
+.color .bounce2,
+.color .bounce3 {
+  background-color: #000000;
+} */
+
+.color .bounce1,
+.color .bounce2,
+.color .bounce3 {
+  background-color: #ff0000;
+}
+
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  margin: 0 3px;
+  background-color: #fff;
+  border-radius: 100%;
+  display: inline-block;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
