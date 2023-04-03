@@ -26,7 +26,7 @@ export interface ICharData {
   comics: IRead;
   series: IRead;
   events: IRead;
-  urls: IRead;
+  urls: IUrls[];
 }
 
 interface IThumbnail {
@@ -44,4 +44,9 @@ interface IReadItem {
   resourceURI: string;
   name: string;
   type: string;
+}
+
+interface IUrls {
+  type: string;
+  url: string;
 }

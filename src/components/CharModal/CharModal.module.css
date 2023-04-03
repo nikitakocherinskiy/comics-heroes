@@ -79,3 +79,17 @@
   right: 0;
   margin: 10px;
 }
+
+.button {
+  margin-top: 10px;
+  background-color: red;
+  padding: 5px;
+  border-radius: 10px;
+  border: 2px solid white;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}

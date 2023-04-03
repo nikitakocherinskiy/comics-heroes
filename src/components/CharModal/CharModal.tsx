@@ -4,6 +4,7 @@ import { fetchCharById } from '../../service/CharService';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { useEffect, useState } from 'react';
 import { ICharData } from '../../service/serviceTypes';
+import { Link } from 'react-router-dom';
 
 type Props = {
   id: number;
@@ -20,6 +21,7 @@ function CharModal({ id, visible, setVisible }: Props) {
   const { data, isLoading } = useQuery(['character', id], () => fetchCharById(id), {
     keepPreviousData: true,
     refetchOnWindowFocus: false,
+    enabled: visible,
   });
 
   useEffect(() => {
@@ -38,6 +40,15 @@ function CharModal({ id, visible, setVisible }: Props) {
             className={styles.image}
           />
           <p className={styles.description}>{charData.description || 'No description yet'}</p>
+          <button className={styles.button}>
+            <Link
+              to={charData.urls[charData.urls.length - 1].url}
+              relative="path"
+              className={styles.link}
+            >
+              Check Out Comics Here!
+            </Link>
+          </button>
           <div className={styles.closeWrapper}>
             <div className={styles.close} onClick={() => setVisible(false)}></div>
           </div>
