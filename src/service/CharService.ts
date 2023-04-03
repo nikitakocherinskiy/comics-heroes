@@ -24,3 +24,11 @@ export async function fetchCharsWithQuery(query: string, limit: number, page: nu
     )
   ).data;
 }
+
+export async function fetchCharById(id: number) {
+  return (
+    await axios.get<IResponse>(
+      `https://gateway.marvel.com:443/v1/public/characters/${id}?apikey=${API_KEY}`
+    )
+  ).data;
+}

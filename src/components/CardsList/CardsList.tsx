@@ -71,9 +71,10 @@ function CardsList({ searchData }: Props) {
               return (
                 <CardItem
                   key={el.id}
+                  id={el.id}
                   name={el.name}
                   description={el.description || 'No description yet'}
-                  image={el.thumbnail.path + '.jpg'}
+                  image={`${el.thumbnail.path}.${el.thumbnail.extension}`}
                 />
               );
             })
@@ -81,9 +82,10 @@ function CardsList({ searchData }: Props) {
               return (
                 <CardItem
                   key={elSearch.id}
+                  id={elSearch.id}
                   name={elSearch.name}
                   description={elSearch.description || 'No description yet'}
-                  image={elSearch.thumbnail.path + '.jpg'}
+                  image={`${elSearch.thumbnail.path}.${elSearch.thumbnail.extension}`}
                 />
               );
             })}

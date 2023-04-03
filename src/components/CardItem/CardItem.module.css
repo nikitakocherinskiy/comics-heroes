@@ -27,6 +27,7 @@
 .link {
   text-decoration: none;
   color: white;
+  cursor: pointer;
 }
 
 .header {
